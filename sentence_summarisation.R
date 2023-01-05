@@ -24,13 +24,14 @@ sample <- data_nometa %>%
 
 sentence_summariser <- function(complaint_id) {
   top = lexRankr::lexRank(sample$text[complaint_id],
-                                    # only 1 article; repeat same docid for all of input vector
-                                    docId = complaint_id,
-                                    # return 3 sentences
-                                    n = 1,
-                                    continuous = TRUE,
-                                    sentencesAsDocs = TRUE,
-                                    threshold = 0.01)
+                          # only 1 article; repeat same docid for all of input vector
+                          docId = complaint_id,
+                          # return 3 sentences
+                          n = 3,
+                          continuous = TRUE,
+                          sentencesAsDocs = TRUE,
+                          threshold = 0.01)
+                          
   
   return(top)
 }
