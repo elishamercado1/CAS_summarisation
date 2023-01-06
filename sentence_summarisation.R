@@ -38,6 +38,16 @@ sentence_summariser <- function(complaint_id) {
   return(top)
 }
 
-test <- map_dfr(sample$complaint_id, sentence_summariser)
+test <- map_dfr(sample$complaint_id, sentence_summariser) %>% 
+  mutate(docId = as.numeric(docId))
+
+output <- left_join(test, sample, by = c("docId" = "complaint_id"))
+
+write.csv(output, "top3sentences.csv", row.names = FALSE)
+
+top_sentence <- output %>% 
+  group_by(docId) %>% 
+  slice_max(order_by = value)
 
 
+write.csv(top_sentence, "topsentences.csv", row.names = FALSE)
