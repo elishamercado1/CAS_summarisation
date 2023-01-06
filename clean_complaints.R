@@ -1,5 +1,6 @@
 source("read_in_raw_complaints.R")
 library(janitor)
+library(quanteda)
 
 data <- all_complaints
 
@@ -166,7 +167,8 @@ data_nometa <- data_doc_clean %>%
   mutate(text = ifelse(complaint == "CAS-453368.docx", 
                        gsub(pattern = "(\\bgd\\b)", replacement = "granddaughter", text), text)) %>% 
   mutate(text = ifelse(complaint == "CAS-453368.docx", 
-                       gsub(pattern = "(\\bag\\b)", replacement = "another girl", text), text)) 
+                       gsub(pattern = "(\\bag\\b)", replacement = "another girl", text), text)) %>% 
+  mutate(text = gsub(pattern = "###", replacement = " ", text))
 
 
 
